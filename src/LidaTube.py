@@ -16,7 +16,7 @@ from thefuzz import fuzz
 import _matcher
 import _general
 import tempfile
-
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 class DataHandler:
     def __init__(self):
@@ -771,6 +771,9 @@ class DataHandler:
 
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
 app.secret_key = "secret_key"
 socketio = SocketIO(app)
 data_handler = DataHandler()
