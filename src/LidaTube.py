@@ -775,7 +775,7 @@ app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
 app.secret_key = "secret_key"
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 data_handler = DataHandler()
 
 
